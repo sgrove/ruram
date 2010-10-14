@@ -48,9 +48,19 @@ end
 class Buffer
   BufferSize = 1024
 
+  class EmptyFile
+    def read(args)
+    end
+  end
+
   def initialize(input)
-    @input = input
-    @buffer = []
+    if input.is_a? String
+      @input = EmptyFile.new
+      @buffer = input.chars.to_a
+    else
+      @input = input
+      @buffer = []
+    end
   end
 
   def read_char
