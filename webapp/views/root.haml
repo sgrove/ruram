@@ -13,12 +13,16 @@
           clr 0
         %br
         %input{:type => :button, :value => "Go", :onclick => "clicked();"}
+        %img#loading{:alt => "Loading...", :style => "display:none;",
+          :src => "http://gamma.mini.pw.edu.pl/~stepienj/logo/logo-anim-micro.gif"}
     %div#right
       %h2 output
       %pre#output
       :javascript
         function clicked() {
-          $('#output').load('/run', {code: $('#input').val()});
+          $('#loading').show();
+          $('#output').load('/run', {code: $('#input').val()},
+            function() { $('#loading').hide(); });
         }
     %a{:href => "http://github.com/stepienj/ruram"}
       %img{:style => "position: absolute; top: 0; left: 0; border: 0;",
