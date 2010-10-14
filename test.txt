@@ -1,0 +1,17 @@
+       clr 3
+       add0 2
+       add0 2
+       add1 2
+       add0 2
+       add0 2
+       add1 2
+       add1 2
+       add0 2
+       add1 2
+       add0 2
+check: 2 jmp1 one
+       2 jmp0 zero
+       continue
+one:   add1 3
+zero:  del 2
+       jmp check
