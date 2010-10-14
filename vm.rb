@@ -1,8 +1,8 @@
-require 'pp'
-
 # TODO: comment it up.
 class VM
   KNOWN_INSTRUCTIONS = [:clr, :jmp, :cjmp, :mov, :clr, :del, :cont, :add]
+
+  attr_reader :registers
 
   def initialize(instructions)
     @labels = {}
@@ -19,10 +19,6 @@ class VM
       step
       @current_instr += 1
     end
-  end
-
-  def dump_registers
-    pp @registers
   end
 
   private
