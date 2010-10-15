@@ -63,6 +63,10 @@ class VM
   def cont(args)
     @current_instr = @instructions.count
   end
+
+  def mov(args)
+    @registers[args[0]] = @registers[args[1]].clone
+  end
 end
 
 class Registers < Hash

@@ -160,4 +160,12 @@ class Parser
     match :symbol
     Instruction.new :jmp, label
   end
+
+  # Parses mov instruction
+  def mov(dest)
+    match :symbol
+    src = @value
+    match :symbol
+    Instruction.new :mov, [dest, src]
+  end
 end
