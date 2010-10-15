@@ -28,7 +28,12 @@ class WebApp < Sinatra::Base
       $stderr = StringIO.new
       vm = VM.new Parser.new(Lexer.new).parse code
       vm.execute
-      reply = vm.registers.map { |pair| "#{pair[0]}\t#{pair[1]}" }.join "\n"
+      reply = "REGISTERS\n"+
+        vm.registers.map { |pair| "#{pair[0]}\t#{pair[1]}" }.join("\n") +
+        "\n\nINSTRUCTIONS\n"+
+        vm.instructions_count.sort { |x,y| y[1] <=> x[1] } .map do |pair|
+          "#{pair[0]}\t#{pair[1]}"
+        end.join("\n")
     rescue SystemExit
       $stderr.rewind
       reply = $stderr.read
