@@ -2,11 +2,12 @@
 class VM
   KNOWN_INSTRUCTIONS = [:clr, :jmp, :cjmp, :mov, :clr, :del, :cont, :add]
 
-  attr_reader :registers
+  attr_reader :registers, :instructions_count
 
   def initialize(instructions)
     @labels = {}
     @registers = Registers.new
+    @instructions_count = Counter.new
     @instructions = instructions
     @current_instr = 0
     instructions.each do |instr|
@@ -27,6 +28,7 @@ class VM
     if unknown_instruction?
       Log.error "Unexpected instruction code: #{current_instruction.code}"
     end
+    @instructions_count[current_instruction.code] += 1
     send current_instruction.code, current_instruction.args
   end
 
@@ -73,5 +75,11 @@ class Registers < Hash
   def [](x)
     return super(x) if self.include? x
     self[x] = []
+  end
+end
+
+class Counter < Hash
+  def [](x)
+    super(x) or self[x] = 0
   end
 end

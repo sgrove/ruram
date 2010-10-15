@@ -9,3 +9,4 @@ instructions = parser.parse File.open(ARGV.first)
 vm = VM.new instructions
 vm.execute
 pp vm.registers
+pp vm.instructions_count
